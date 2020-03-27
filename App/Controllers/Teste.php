@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use App\Models\People;
+use App\Utils\Request;
 
 class Teste extends Controller
 {
-    public static function index()
+    function index()
     {
-        print('daniel eh gay');
+        print_r(Request::headers());
     }
 }

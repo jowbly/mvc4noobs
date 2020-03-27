@@ -31,13 +31,17 @@ class Application
         foreach (glob(__DIR__ . "/App/Controllers/*.php") as $key) {
             include_once($key);
         }
+
+        foreach (glob(__DIR__ . "/App/Utils/*.php") as $key) {
+            include_once($key);
+        }
     }
 
     public function router()
     {
-        if(isset($this->router->routes[$this->uri])){
-
-            $route = $this->router->routes[$this->uri];
+        if(isset($this->router->routes[explode('?', $this->uri)[0]])){
+            
+            $route = $this->router->routes[explode('?', $this->uri)[0]];
 
             $uri = explode('::', $route['action']);
             $vars = array(
@@ -45,8 +49,6 @@ class Application
                 'action'       => (count($uri) > 0 ? array_shift($uri) : 'index'),
                 'params'       => array()
             );
-
-            print_r($vars);
 
             $route = 'App\\Controllers\\'.ucfirst($vars['controller']).'::'.$vars['action'];
 

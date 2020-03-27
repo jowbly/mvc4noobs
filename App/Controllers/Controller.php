@@ -8,6 +8,15 @@ class Controller
     {
         header("HTTP/1.0 ". $httpCode);
         header('Content-type: application/json');
-        echo json_encode($data);
+        die(json_encode($data));
     }
+
+    public function view($page,$variables=[]){
+    if(count($variables))
+    {
+        extract($variables);
+    }
+       require_once('App\\Views\\' . $page);
+	}
+
 }
